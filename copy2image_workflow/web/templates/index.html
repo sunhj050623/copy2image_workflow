@@ -1,0 +1,238 @@
+﻿<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ i18n.title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="top">
+      <div>
+        <h1>{{ i18n.title }}</h1>
+        <p class="sub">{{ i18n.subtitle }}</p>
+      </div>
+      <div class="header-actions">
+        <a href="/settings" class="lang-link">{{ i18n.buttons.get('settings', 'Model Settings') }}</a>
+        <button type="button" id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+          <span class="btn-icon-wrap" aria-hidden="true">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"></path>
+            </svg>
+          </span>
+        </button>
+        <button type="button" id="lang-toggle" class="lang-link">{{ i18n.lang_switch }}</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <h2>{{ i18n.run_title }}</h2>
+        <form id="run-form">
+          <label>{{ i18n.labels.mode }}
+            <select name="mode" id="mode-select" required>
+              {% for mode in modes %}
+              {% if lang == "zh" %}
+              <option value="{{ mode }}">{{ i18n.modes[mode] }}</option>
+              {% else %}
+              <option value="{{ mode }}">{{ i18n.modes[mode] }} ({{ mode }})</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </label>
+
+          <label>{{ i18n.labels.topic }}
+            <input type="text" name="topic" placeholder="{{ i18n.placeholders.topic }}">
+          </label>
+
+          <div class="content-block">
+            <div class="content-head">{{ i18n.labels.content }}</div>
+            <div class="tabs" role="tablist" aria-label="{{ i18n.labels.input_source }}">
+              <button type="button" class="tab-btn active" data-source="text">{{ i18n.labels.input_text }}</button>
+              <button type="button" class="tab-btn" data-source="upload">{{ i18n.labels.input_upload }}</button>
+            </div>
+
+            <div id="pane-text" class="pane active">
+              <textarea name="content" id="content-text" rows="8" placeholder="{{ i18n.placeholders.content }}"></textarea>
+            </div>
+
+            <div id="pane-upload" class="pane hidden">
+              <label class="upload-label">{{ i18n.labels.upload_file }}
+                <input type="file" id="upload-file" accept=".txt,.md,.markdown,.docx" class="file-input">
+              </label>
+              <div class="upload-row">
+                <span class="run-meta">{{ "閫夋嫨鍚庤嚜鍔ㄤ笂浼犲苟浣跨敤" if lang == "zh" else "Auto upload and use after selection" }}</span>
+                <span id="upload-status" class="run-meta">{{ i18n.placeholders.upload_status_empty }}</span>
+              </div>
+            </div>
+
+            <input type="hidden" name="content_file" id="content-file-hidden">
+          </div>
+
+          <div class="row">
+            <label id="style-wrap"><span id="style-label">{{ i18n.labels.style }}</span>
+              <select name="style" id="style-select"></select>
+            </label>
+            <label id="layout-wrap">{{ i18n.labels.layout }}
+              <select name="layout" id="layout-select"></select>
+            </label>
+            <label id="palette-wrap">{{ i18n.labels.palette }}
+              <select name="palette" id="palette-select"></select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label id="tone-wrap">{{ i18n.labels.tone }}
+              <select name="tone" id="tone-select"></select>
+            </label>
+            <label id="lang-wrap">{{ i18n.labels.lang }}
+              <select name="lang" id="lang-select"></select>
+            </label>
+            <label id="cover-type-wrap">{{ i18n.labels.get('cover_type', 'Cover Type (optional)') }}
+              <select name="cover_type" id="cover-type-select"></select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label id="rendering-wrap">{{ i18n.labels.get('rendering', 'Rendering (optional)') }}
+              <select name="rendering" id="rendering-select"></select>
+            </label>
+            <label id="text-level-wrap">{{ i18n.labels.get('text_level', 'Text Density (optional)') }}
+              <select name="text_level" id="text-level-select"></select>
+            </label>
+            <label id="mood-wrap">{{ i18n.labels.get('mood', 'Mood (optional)') }}
+              <select name="mood" id="mood-select"></select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label id="font-wrap">{{ i18n.labels.get('font', 'Font (optional)') }}
+              <select name="font" id="font-select"></select>
+            </label>
+            <label id="type-wrap">{{ i18n.labels.get('type', 'Type (optional)') }}
+              <select name="type" id="type-select"></select>
+            </label>
+            <label id="preset-wrap">{{ i18n.labels.get('preset', 'Preset (optional)') }}
+              <select name="preset" id="preset-select"></select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label id="density-wrap">{{ i18n.labels.get('density', 'Density (optional)') }}
+              <select name="density" id="density-select"></select>
+            </label>
+          </div>
+
+          <div id="ref-wrap" class="content-block hidden">
+            <div class="content-head">{{ i18n.labels.get('ref_images', 'Reference Images (optional)') }}</div>
+            <label class="upload-label upload-card">{{ i18n.labels.get('upload_ref_file', 'Select reference images') }}
+              <div class="upload-card-body" aria-hidden="true">
+                <svg class="upload-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 15V5"></path>
+                  <path d="m8 9 4-4 4 4"></path>
+                  <path d="M20 16.5A3.5 3.5 0 0 1 16.5 20h-9A3.5 3.5 0 0 1 4 16.5"></path>
+                </svg>
+                <span>{{ "娣诲姞鍥剧墖" if lang == "zh" else "Add Images" }}</span>
+              </div>
+              <input type="file" id="ref-file" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" class="file-input" multiple>
+            </label>
+            <div id="ref-preview-grid" class="ref-preview-grid hidden"></div>
+            <div class="upload-row">
+              <span class="run-meta">{{ "閫夋嫨鍚庤嚜鍔ㄤ笂浼犲苟浣跨敤" if lang == "zh" else "Auto upload and use after selection" }}</span>
+              <span id="ref-upload-status" class="run-meta">{{ i18n.placeholders.get('ref_status_empty', 'No reference image uploaded') }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <label>{{ i18n.labels.image_count }}<input type="number" name="image_count" value="4" min="1"></label>
+            <label>{{ i18n.labels.aspect_ratio }}<input type="text" name="aspect_ratio" value="3:4"></label>
+            <label>{{ i18n.labels.quality }}
+              <select name="quality">
+                <option value="2k">2k</option>
+                <option value="normal">normal</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="checks">
+            <label><input type="checkbox" name="anchor_chain" checked> <span class="check-text">{{ i18n.labels.anchor_chain }}</span></label>
+            <label><input type="checkbox" name="skip_analysis_llm"> <span class="check-text">{{ i18n.labels.skip_analysis_llm }}</span></label>
+            <label><input type="checkbox" name="skip_outline_llm"> <span class="check-text">{{ i18n.labels.skip_outline_llm }}</span></label>
+          </div>
+
+          <div class="actions">
+            <button type="submit" id="run-btn" class="btn-icon-left btn-primary-strong">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 3 1.8 3.7L17.5 8l-3.7 1.3L12 13l-1.8-3.7L6.5 8l3.7-1.3L12 3Z"></path>
+                <path d="m5 14 1.1 2.2L8.3 17l-2.2.8L5 20l-1.1-2.2L1.7 17l2.2-.8L5 14Z"></path>
+              </svg>
+              <span>{{ i18n.buttons.run }}</span>
+            </button>
+            <button type="button" id="stop-btn" class="danger ghost" disabled>{{ i18n.buttons.stop }}</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>{{ i18n.result_title }}</h2>
+        <div id="result-summary" class="run-meta hidden">{{ i18n.placeholders.result_empty }}</div>
+        <div id="result-gallery" class="result-gallery result-gallery-empty">
+          <div class="result-empty">
+            <svg class="result-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3.5" y="5" width="13" height="13" rx="2.2"></rect>
+              <circle cx="8.2" cy="9.2" r="1.3"></circle>
+              <path d="m7 15 2.8-2.6L12.2 15"></path>
+              <path d="m18 6 3 3"></path>
+              <path d="M21 6h-3"></path>
+              <path d="M21 6v3"></path>
+            </svg>
+            <span>{{ i18n.result_title }}</span>
+          </div>
+        </div>
+        <div id="result-pager" class="result-pager hidden">
+          <button type="button" id="result-prev" class="ghost btn-sm">{{ "上一页" if lang == "zh" else "Prev" }}</button>
+          <span id="result-page-text" class="run-meta">1 / 1</span>
+          <button type="button" id="result-next" class="ghost btn-sm">{{ "下一页" if lang == "zh" else "Next" }}</button>
+        </div>
+        <pre id="result-box" class="hidden">{}</pre>
+      </section>
+    </main>
+
+    <section class="panel recent">
+      <div class="recent-head">
+        <h2>{{ i18n.recent_title }}</h2>
+        <button id="refresh-btn" class="ghost btn-sm btn-icon-left">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 12a8 8 0 1 1-2.3-5.7"></path>
+            <path d="M20 4v6h-6"></path>
+          </svg>
+          <span>{{ i18n.buttons.refresh }}</span>
+        </button>
+      </div>
+      <div id="recent-list">
+        {% for r in recent_runs %}
+        <article class="run-item" data-mode="{{ r.mode }}" data-run="{{ r.run_id }}">
+          <div><strong>{{ i18n.modes.get(r.mode, r.mode) }}</strong> / {{ r.title or r.run_id }}</div>
+        </article>
+        {% else %}
+        <div class="run-meta">No runs</div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <div id="image-modal" class="image-modal hidden" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button type="button" id="image-modal-close" class="ghost modal-close">脳</button>
+    <img id="image-modal-img" alt="preview">
+  </div>
+
+  <script>
+    window.COPY2IMAGE_LANG = "{{ lang }}";
+    window.COPY2IMAGE_ALT_LANG = "{{ alt_lang }}";
+    window.COPY2IMAGE_I18N = {{ i18n | tojson }};
+  </script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
+

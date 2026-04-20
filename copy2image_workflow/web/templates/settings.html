@@ -1,0 +1,95 @@
+﻿<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if lang == "zh" %}妯″瀷璁剧疆{% else %}Model Settings{% endif %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container settings-page">
+    <header class="top">
+      <div>
+        <h1>{% if lang == "zh" %}妯″瀷璁剧疆{% else %}Model Settings{% endif %}</h1>
+        <p class="sub">{% if lang == "zh" %}鍗曠嫭閰嶇疆鏂囨湰妯″瀷涓庣粯鍥炬ā鍨嬬殑 API 鍙傛暟锛屼繚瀛樺悗鐢ㄤ簬鍚庣画鐢熸垚浠诲姟{% else %}Configure API settings for text and image models. Saved values will be used in subsequent runs.{% endif %}</p>
+      </div>
+      <div class="header-actions">
+        <a href="/" class="lang-link">{% if lang == "zh" %}杩斿洖鎺у埗鍙皗% else %}Back to Console{% endif %}</a>
+        <button type="button" id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+          <span class="btn-icon-wrap" aria-hidden="true">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"></path>
+            </svg>
+          </span>
+        </button>
+        <button type="button" id="lang-toggle" class="lang-link">{{ i18n.lang_switch }}</button>
+      </div>
+    </header>
+
+    <main class="settings-grid">
+      <section class="panel">
+        <h2>{% if lang == "zh" %}鏂囨湰妯″瀷{% else %}Text Model{% endif %}</h2>
+        <form id="settings-form">
+          <div class="row">
+            <label>{% if lang == "zh" %}API Key{% else %}API Key{% endif %}
+              <div class="secret-input">
+                <input type="password" id="text-api-key" autocomplete="off" placeholder="{% if lang == 'zh' %}渚嬪 sk-...{% else %}e.g. sk-...{% endif %}">
+                <button type="button" class="secret-toggle" data-target="text-api-key" aria-label="{% if lang == 'zh' %}鏄剧ず API Key{% else %}Show API Key{% endif %}" title="{% if lang == 'zh' %}鏄剧ず API Key{% else %}Show API Key{% endif %}"></button>
+              </div>
+            </label>
+            <label>{% if lang == "zh" %}Base URL{% else %}Base URL{% endif %}
+              <input type="text" id="text-base-url" autocomplete="off" placeholder="https://api.openai.com/v1">
+            </label>
+            <label>{% if lang == "zh" %}妯″瀷鍚峽% else %}Model Name{% endif %}
+              <input type="text" id="text-model" autocomplete="off" placeholder="gpt-4o-mini">
+            </label>
+          </div>
+
+          <h2 class="settings-subtitle">{% if lang == "zh" %}缁樺浘妯″瀷{% else %}Image Model{% endif %}</h2>
+          <div class="row">
+            <label>{% if lang == "zh" %}API Key{% else %}API Key{% endif %}
+              <div class="secret-input">
+                <input type="password" id="image-api-key" autocomplete="off" placeholder="{% if lang == 'zh' %}渚嬪 sk-...{% else %}e.g. sk-...{% endif %}">
+                <button type="button" class="secret-toggle" data-target="image-api-key" aria-label="{% if lang == 'zh' %}鏄剧ず API Key{% else %}Show API Key{% endif %}" title="{% if lang == 'zh' %}鏄剧ず API Key{% else %}Show API Key{% endif %}"></button>
+              </div>
+            </label>
+            <label>{% if lang == "zh" %}Base URL{% else %}Base URL{% endif %}
+              <input type="text" id="image-base-url" autocomplete="off" placeholder="https://api.openai.com/v1">
+            </label>
+            <label>{% if lang == "zh" %}妯″瀷鍚峽% else %}Model Name{% endif %}
+              <input type="text" id="image-model" autocomplete="off" placeholder="gpt-image-1">
+            </label>
+          </div>
+
+          <div class="row row-two settings-row-two">
+            <label>{% if lang == "zh" %}Provider锛堝彲閫夛級{% else %}Provider (optional){% endif %}
+              <input type="text" id="image-provider" autocomplete="off" placeholder="openai">
+            </label>
+            <label>{% if lang == "zh" %}API 鏂硅█锛堝彲閫夛級{% else %}API Dialect (optional){% endif %}
+              <input type="text" id="image-dialect" autocomplete="off" placeholder="openai-native">
+            </label>
+          </div>
+
+          <div id="settings-status" class="status-pill hidden" role="status" aria-live="polite"></div>
+
+          <div class="actions settings-actions">
+            <button type="submit" id="save-settings-btn" class="btn-primary-strong">
+              {% if lang == "zh" %}淇濆瓨璁剧疆{% else %}Save Settings{% endif %}
+            </button>
+            <button type="button" id="reload-settings-btn" class="ghost">
+              {% if lang == "zh" %}閲嶆柊鍔犺浇{% else %}Reload{% endif %}
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    window.COPY2IMAGE_LANG = "{{ lang }}";
+    window.COPY2IMAGE_ALT_LANG = "{{ alt_lang }}";
+  </script>
+  <script src="/static/settings.js"></script>
+</body>
+</html>
+

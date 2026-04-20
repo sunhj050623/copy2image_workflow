@@ -1,0 +1,13 @@
+services:
+  copy2image-workflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    env_file:
+      - ../agent/.env
+    volumes:
+      - ./:/app
+      - ../agentorch:/app/agentorch:ro
+    ports:
+      - "8001:8000"
