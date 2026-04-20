@@ -16,6 +16,7 @@
 
 <p>
   <a href="#-项目简介">简介</a> •
+  <a href="#-示例效果">示例</a> •
   <a href="#-快速开始">快速开始</a> •
   <a href="#-工作模式">工作模式</a> •
   <a href="#-分模式参数说明">分模式参数</a> •
@@ -49,6 +50,32 @@
 - 📝 文章配图：长文按章节自动配图
 - 🧭 图表图示：架构图、流程图、时序图
 - 🖼️ 封面图：文章、视频、活动主视觉
+
+---
+
+## 🖼️ 示例效果
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="example/example1.png" alt="example 1" width="280" />
+        <br />
+        <sub>示例 1</sub>
+      </td>
+      <td align="center">
+        <img src="example/example2.png" alt="example 2" width="280" />
+        <br />
+        <sub>示例 2</sub>
+      </td>
+      <td align="center">
+        <img src="example/example3.png" alt="example 3" width="280" />
+        <br />
+        <sub>示例 3</sub>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
 
