@@ -142,7 +142,6 @@ python -m copy2image_workflow.cli run \
 | `skip_analysis_llm` | bool | `false` | 跳过 LLM 内容分析 |
 | `skip_outline_llm` | bool | `false` | 跳过 LLM 大纲提炼 |
 | `output_root` | string | `runs` | 输出目录根路径 |
-| `thread_id` | string | `copy2image-thread` | 线程 ID |
 
 ### 1) `image-cards`
 

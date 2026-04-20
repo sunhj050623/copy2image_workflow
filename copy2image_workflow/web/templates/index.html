@@ -62,7 +62,7 @@
                 <input type="file" id="upload-file" accept=".txt,.md,.markdown,.docx" class="file-input">
               </label>
               <div class="upload-row">
-                <span class="run-meta">{{ "閫夋嫨鍚庤嚜鍔ㄤ笂浼犲苟浣跨敤" if lang == "zh" else "Auto upload and use after selection" }}</span>
+                <span class="run-meta">{{ "选择后自动上传并使用" if lang == "zh" else "Auto upload and use after selection" }}</span>
                 <span id="upload-status" class="run-meta">{{ i18n.placeholders.upload_status_empty }}</span>
               </div>
             </div>
@@ -133,13 +133,13 @@
                   <path d="m8 9 4-4 4 4"></path>
                   <path d="M20 16.5A3.5 3.5 0 0 1 16.5 20h-9A3.5 3.5 0 0 1 4 16.5"></path>
                 </svg>
-                <span>{{ "娣诲姞鍥剧墖" if lang == "zh" else "Add Images" }}</span>
+                <span>{{ "添加图片" if lang == "zh" else "Add Images" }}</span>
               </div>
               <input type="file" id="ref-file" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" class="file-input" multiple>
             </label>
             <div id="ref-preview-grid" class="ref-preview-grid hidden"></div>
             <div class="upload-row">
-              <span class="run-meta">{{ "閫夋嫨鍚庤嚜鍔ㄤ笂浼犲苟浣跨敤" if lang == "zh" else "Auto upload and use after selection" }}</span>
+              <span class="run-meta">{{ "选择后自动上传并使用" if lang == "zh" else "Auto upload and use after selection" }}</span>
               <span id="ref-upload-status" class="run-meta">{{ i18n.placeholders.get('ref_status_empty', 'No reference image uploaded') }}</span>
             </div>
           </div>
@@ -223,7 +223,7 @@
   </div>
 
   <div id="image-modal" class="image-modal hidden" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button type="button" id="image-modal-close" class="ghost modal-close">脳</button>
+    <button type="button" id="image-modal-close" class="ghost modal-close">×</button>
     <img id="image-modal-img" alt="preview">
   </div>
 
